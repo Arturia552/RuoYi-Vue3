@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-upload
+      v-if="type == 'url'"
       :action="uploadUrl"
       :before-upload="handleBeforeUpload"
       :on-success="handleUploadSuccess"
@@ -8,21 +9,18 @@
       name="file"
       :show-file-list="false"
       :headers="headers"
-      class="editor-img-uploader"
-      v-if="type == 'url'"
-    >
-      <i ref="uploadRef" class="editor-img-uploader"></i>
+      class="editor-img-uploader">
+      <i ref="uploadRef" class="editor-img-uploader" />
     </el-upload>
   </div>
   <div class="editor">
     <quill-editor
       ref="quillEditorRef"
       v-model:content="content"
-      contentType="html"
-      @textChange="(e) => $emit('update:modelValue', content)"
+      content-type="html"
       :options="options"
       :style="styles"
-    />
+      @text-change="(e) => $emit('update:modelValue', content)" />
   </div>
 </template>
 

@@ -6,16 +6,16 @@
           v-if="(item.elTagType == 'default' || item.elTagType == '') && (item.elTagClass == '' || item.elTagClass == null)"
           :key="item.value"
           :index="index"
-          :class="item.elTagClass"
-        >{{ item.label + " " }}</span>
+          :class="item.elTagClass">{{ item.label + " " }}</span>
         <el-tag
           v-else
-          :disable-transitions="true"
           :key="item.value + ''"
+          :disable-transitions="true"
           :index="index"
           :type="item.elTagType"
-          :class="item.elTagClass"
-        >{{ item.label + " " }}</el-tag>
+          :class="item.elTagClass">
+          {{ item.label + " " }}
+        </el-tag>
       </template>
     </template>
     <template v-if="unmatch && showValue">

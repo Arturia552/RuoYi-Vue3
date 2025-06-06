@@ -11,9 +11,15 @@
           <div class="components-title">
             <svg-icon icon-class="component" />输入型组件
           </div>
-          <draggable class="components-draggable" :list="inputComponents"
-            :group="{ name: 'componentsGroup', pull: 'clone', put: false }" :clone="cloneComponent"
-            draggable=".components-item" :sort="false" @end="onEnd" item-key="label">
+          <draggable
+            class="components-draggable"
+            :list="inputComponents"
+            :group="{ name: 'componentsGroup', pull: 'clone', put: false }"
+            :clone="cloneComponent"
+            draggable=".components-item"
+            :sort="false"
+            item-key="label"
+            @end="onEnd">
             <template #item="{ element, index }">
               <div :key="index" class="components-item" @click="addComponent(element)">
                 <div class="components-body">
@@ -26,9 +32,15 @@
           <div class="components-title">
             <svg-icon icon-class="component" />选择型组件
           </div>
-          <draggable class="components-draggable" :list="selectComponents"
-            :group="{ name: 'componentsGroup', pull: 'clone', put: false }" :clone="cloneComponent"
-            draggable=".components-item" :sort="false" @end="onEnd" item-key="label">
+          <draggable
+            class="components-draggable"
+            :list="selectComponents"
+            :group="{ name: 'componentsGroup', pull: 'clone', put: false }"
+            :clone="cloneComponent"
+            draggable=".components-item"
+            :sort="false"
+            item-key="label"
+            @end="onEnd">
             <template #item="{ element, index }">
               <div :key="index" class="components-item" @click="addComponent(element)">
                 <div class="components-body">
@@ -41,9 +53,15 @@
           <div class="components-title">
             <svg-icon icon-class="component" /> 布局型组件
           </div>
-          <draggable class="components-draggable" :list="layoutComponents"
-            :group="{ name: 'componentsGroup', pull: 'clone', put: false }" :clone="cloneComponent"
-            draggable=".components-item" :sort="false" @end="onEnd" item-key="label">
+          <draggable
+            class="components-draggable"
+            :list="layoutComponents"
+            :group="{ name: 'componentsGroup', pull: 'clone', put: false }"
+            :clone="cloneComponent"
+            draggable=".components-item"
+            :sort="false"
+            item-key="label"
+            @end="onEnd">
             <template #item="{ element, index }">
               <div :key="index" class="components-item" @click="addComponent(element)">
                 <div class="components-body">
@@ -58,26 +76,54 @@
     </div>
     <div class="center-board">
       <div class="action-bar">
-        <el-button icon="Download" type="primary" text @click="download">
+        <el-button
+          icon="Download"
+          type="primary"
+          text
+          @click="download">
           导出vue文件
         </el-button>
-        <el-button class="copy-btn-main" icon="DocumentCopy" type="primary" text @click="copy">
+        <el-button
+          class="copy-btn-main"
+          icon="DocumentCopy"
+          type="primary"
+          text
+          @click="copy">
           复制代码
         </el-button>
-        <el-button class="delete-btn" icon="Delete" text @click="empty" type="danger">
+        <el-button
+          class="delete-btn"
+          icon="Delete"
+          text
+          type="danger"
+          @click="empty">
           清空
         </el-button>
       </div>
       <el-scrollbar class="center-scrollbar">
         <el-row class="center-board-row" :gutter="formConf.gutter">
-          <el-form :size="formConf.size" :label-position="formConf.labelPosition" :disabled="formConf.disabled"
+          <el-form
+            :size="formConf.size"
+            :label-position="formConf.labelPosition"
+            :disabled="formConf.disabled"
             :label-width="formConf.labelWidth + 'px'">
-            <draggable class="drawing-board" :list="drawingList" :animation="340" group="componentsGroup"
+            <draggable
+              class="drawing-board"
+              :list="drawingList"
+              :animation="340"
+              group="componentsGroup"
               item-key="label">
               <template #item="{ element, index }">
-                <draggable-item :key="element.renderKey" :drawing-list="drawingList" :element="element" :index="index"
-                  :active-id="activeId" :form-conf="formConf" @activeItem="activeFormItem" @copyItem="drawingItemCopy"
-                  @deleteItem="drawingItemDelete" />
+                <draggable-item
+                  :key="element.renderKey"
+                  :drawing-list="drawingList"
+                  :element="element"
+                  :index="index"
+                  :active-id="activeId"
+                  :form-conf="formConf"
+                  @active-item="activeFormItem"
+                  @copy-item="drawingItemCopy"
+                  @delete-item="drawingItemDelete" />
               </template>
             </draggable>
             <div v-show="!drawingList.length" class="empty-info">
@@ -87,10 +133,17 @@
         </el-row>
       </el-scrollbar>
     </div>
-    <right-panel :active-data="activeData" :form-conf="formConf" :show-field="!!drawingList.length"
+    <right-panel
+      :active-data="activeData"
+      :form-conf="formConf"
+      :show-field="!!drawingList.length"
       @tag-change="tagChange" />
 
-    <code-type-dialog v-model="dialogVisible" title="选择生成类型" :showFileName="showFileName" @confirm="generate" />
+    <code-type-dialog
+      v-model="dialogVisible"
+      title="选择生成类型"
+      :show-file-name="showFileName"
+      @confirm="generate" />
     <input id="copyNode" type="hidden">
   </div>
 </template>

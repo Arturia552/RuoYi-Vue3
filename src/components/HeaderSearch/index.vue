@@ -4,27 +4,31 @@
     <el-dialog
       v-model="show"
       width="600"
-      @close="close"
       :show-close="false"
       append-to-body
-    >
+      @close="close">
       <el-input
-        v-model="search"
         ref="headerSearchSelectRef"
+        v-model="search"
         size="large"
-        @input="querySearch"
         prefix-icon="Search"
         placeholder="菜单搜索，支持标题、URL模糊查询"
         clearable
+        @input="querySearch"
         @keyup.enter="selectActiveResult"
         @keydown.up.prevent="navigateResult('up')"
-        @keydown.down.prevent="navigateResult('down')"
-      >
-      </el-input>
+        @keydown.down.prevent="navigateResult('down')" />
 
       <div class="result-wrap">
         <el-scrollbar>
-          <div class="search-item" tabindex="1" v-for="(item, index) in options" :key="item.path" :style="activeStyle(index)" @mouseenter="activeIndex = index" @mouseleave="activeIndex = -1">
+          <div
+            v-for="(item, index) in options"
+            :key="item.path"
+            class="search-item"
+            tabindex="1"
+            :style="activeStyle(index)"
+            @mouseenter="activeIndex = index"
+            @mouseleave="activeIndex = -1">
             <div class="left">
               <svg-icon class="menu-icon" :icon-class="item.icon" />
             </div>
@@ -36,7 +40,7 @@
                 {{ item.path }}
               </div>
             </div>
-            <svg-icon icon-class="enter" v-show="index === activeIndex"/>
+            <svg-icon v-show="index === activeIndex" icon-class="enter" />
           </div>
         </el-scrollbar>
       </div>

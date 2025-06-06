@@ -1,13 +1,19 @@
 <template>
-	<div class="popup-result">
-		<p class="title">最近5次运行时间</p>
-		<ul class="popup-result-scroll">
-			<template v-if='isShow'>
-				<li v-for='item in resultList' :key="item">{{item}}</li>
-			</template>
-			<li v-else>计算结果中...</li>
-		</ul>
-	</div>
+  <div class="popup-result">
+    <p class="title">
+      最近5次运行时间
+    </p>
+    <ul class="popup-result-scroll">
+      <template v-if="isShow">
+        <li v-for="item in resultList" :key="item">
+          {{ item }}
+        </li>
+      </template>
+      <li v-else>
+        计算结果中...
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup>
@@ -119,7 +125,7 @@ function expressionChange() {
         // 循环月份数组
         goMonth: for (let Mi = MIdx; Mi < MDate.length; Mi++) {
             // 赋值、方便后面运算
-            let MM = MDate[Mi];
+            let MM = MDate[Mi]
             MM = MM < 10 ? '0' + MM : MM
             // 如果到达最大值时
             if (nDay > DDate[DDate.length - 1]) {

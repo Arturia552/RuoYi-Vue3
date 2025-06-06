@@ -1,9 +1,15 @@
 <template>
-  <el-form ref="genInfoForm" :model="info" :rules="rules" label-width="150px">
+  <el-form
+    ref="genInfoForm"
+    :model="info"
+    :rules="rules"
+    label-width="150px">
     <el-row>
       <el-col :span="12">
         <el-form-item prop="tplCategory">
-          <template #label>生成模板</template>
+          <template #label>
+            生成模板
+          </template>
           <el-select v-model="info.tplCategory" @change="tplSelectChange">
             <el-option label="单表（增删改查）" value="crud" />
             <el-option label="树表（增删改查）" value="tree" />
@@ -14,7 +20,9 @@
 
       <el-col :span="12">
         <el-form-item prop="tplWebType">
-          <template #label>前端类型</template>
+          <template #label>
+            前端类型
+          </template>
           <el-select v-model="info.tplWebType">
             <el-option label="Vue2 Element UI 模版" value="element-ui" />
             <el-option label="Vue3 Element Plus 模版" value="element-plus" />
@@ -78,8 +86,12 @@
               <el-icon><question-filled /></el-icon>
             </el-tooltip>
           </template>
-          <el-radio v-model="info.genType" value="0">zip压缩包</el-radio>
-          <el-radio v-model="info.genType" value="1">自定义路径</el-radio>
+          <el-radio v-model="info.genType" value="0">
+            zip压缩包
+          </el-radio>
+          <el-radio v-model="info.genType" value="1">
+            自定义路径
+          </el-radio>
         </el-form-item>
       </el-col>
 
@@ -97,12 +109,11 @@
             :props="{ value: 'menuId', label: 'menuName', children: 'children' }"
             value-key="menuId"
             placeholder="请选择系统菜单"
-            check-strictly
-          />
+            check-strictly />
         </el-form-item>
       </el-col>
 
-      <el-col :span="24" v-if="info.genType == '1'">
+      <el-col v-if="info.genType == '1'" :span="24">
         <el-form-item prop="genPath">
           <template #label>
             自定义路径
@@ -115,11 +126,13 @@
               <el-dropdown>
                 <el-button type="primary">
                   最近路径快速选择
-                  <i class="el-icon-arrow-down el-icon--right"></i>
+                  <i class="el-icon-arrow-down el-icon--right" />
                 </el-button>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item @click="info.genPath = '/'">恢复默认的生成基础路径</el-dropdown-item>
+                    <el-dropdown-item @click="info.genPath = '/'">
+                      恢复默认的生成基础路径
+                    </el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>
@@ -130,7 +143,9 @@
     </el-row>
     
     <template v-if="info.tplCategory == 'tree'">
-      <h4 class="form-header">其他信息</h4>
+      <h4 class="form-header">
+        其他信息
+      </h4>
       <el-row v-show="info.tplCategory == 'tree'">
         <el-col :span="12">
           <el-form-item>
@@ -145,8 +160,7 @@
                 v-for="(column, index) in info.columns"
                 :key="index"
                 :label="column.columnName + '：' + column.columnComment"
-                :value="column.columnName"
-              ></el-option>
+                :value="column.columnName" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -163,8 +177,7 @@
                 v-for="(column, index) in info.columns"
                 :key="index"
                 :label="column.columnName + '：' + column.columnComment"
-                :value="column.columnName"
-              ></el-option>
+                :value="column.columnName" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -181,8 +194,7 @@
                 v-for="(column, index) in info.columns"
                 :key="index"
                 :label="column.columnName + '：' + column.columnComment"
-                :value="column.columnName"
-              ></el-option>
+                :value="column.columnName" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -190,7 +202,9 @@
     </template>
 
     <template v-if="info.tplCategory == 'sub'">
-      <h4 class="form-header">关联信息</h4>
+      <h4 class="form-header">
+        关联信息
+      </h4>
       <el-row>
         <el-col :span="12">
           <el-form-item>
@@ -205,8 +219,7 @@
                 v-for="(table, index) in tables"
                 :key="index"
                 :label="table.tableName + '：' + table.tableComment"
-                :value="table.tableName"
-              ></el-option>
+                :value="table.tableName" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -223,14 +236,12 @@
                 v-for="(column, index) in subColumns"
                 :key="index"
                 :label="column.columnName + '：' + column.columnComment"
-                :value="column.columnName"
-              ></el-option>
+                :value="column.columnName" />
             </el-select>
           </el-form-item>
         </el-col>
       </el-row>
     </template>
-
   </el-form>
 </template>
 

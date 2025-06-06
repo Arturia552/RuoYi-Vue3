@@ -8,7 +8,7 @@ import useUserStore from '@/store/modules/user'
 
 let downloadLoadingInstance
 // 是否显示重新登录
-export let isRelogin = { show: false }
+export const isRelogin = { show: false }
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例

@@ -1,16 +1,15 @@
 <template>
   <div :class="{ 'hidden': hidden }" class="pagination-container">
     <el-pagination
-      :background="background"
       v-model:current-page="currentPage"
       v-model:page-size="pageSize"
+      :background="background"
       :layout="layout"
       :page-sizes="pageSizes"
       :pager-count="pagerCount"
       :total="total"
       @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-    />
+      @current-change="handleCurrentChange" />
   </div>
 </template>
 

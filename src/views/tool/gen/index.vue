@@ -1,14 +1,17 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch">
+    <el-form
+      v-show="showSearch"
+      ref="queryRef"
+      :model="queryParams"
+      :inline="true">
       <el-form-item label="表名称" prop="tableName">
         <el-input
           v-model="queryParams.tableName"
           placeholder="请输入表名称"
           clearable
           style="width: 200px"
-          @keyup.enter="handleQuery"
-        />
+          @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="表描述" prop="tableComment">
         <el-input
@@ -16,8 +19,7 @@
           placeholder="请输入表描述"
           clearable
           style="width: 200px"
-          @keyup.enter="handleQuery"
-        />
+          @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="创建时间" style="width: 308px">
         <el-date-picker
@@ -26,116 +28,198 @@
           type="daterange"
           range-separator="-"
           start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>
+          end-placeholder="结束日期" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
-        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="Search" @click="handleQuery">
+          搜索
+        </el-button>
+        <el-button icon="Refresh" @click="resetQuery">
+          重置
+        </el-button>
       </el-form-item>
     </el-form>
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
+          v-hasPermi="['tool:gen:code']"
           type="primary"
           plain
           icon="Download"
           :disabled="multiple"
-          @click="handleGenTable"
-          v-hasPermi="['tool:gen:code']"
-        >生成</el-button>
+          @click="handleGenTable">
+          生成
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
+          v-hasRole="['admin']"
           type="primary"
           plain
           icon="Plus"
-          @click="openCreateTable"
-          v-hasRole="['admin']"
-        >创建</el-button>
+          @click="openCreateTable">
+          创建
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
+          v-hasPermi="['tool:gen:import']"
           type="info"
           plain
           icon="Upload"
-          @click="openImportTable"
-          v-hasPermi="['tool:gen:import']"
-        >导入</el-button>
+          @click="openImportTable">
+          导入
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
+          v-hasPermi="['tool:gen:edit']"
           type="success"
           plain
           icon="Edit"
           :disabled="single"
-          @click="handleEditTable"
-          v-hasPermi="['tool:gen:edit']"
-        >修改</el-button>
+          @click="handleEditTable">
+          修改
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
+          v-hasPermi="['tool:gen:remove']"
           type="danger"
           plain
           icon="Delete"
           :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['tool:gen:remove']"
-        >删除</el-button>
+          @click="handleDelete">
+          删除
+        </el-button>
       </el-col>
-      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
     </el-row>
 
-    <el-table ref="genRef" v-loading="loading" :data="tableList" @selection-change="handleSelectionChange" :default-sort="defaultSort" @sort-change="handleSortChange">
-      <el-table-column type="selection" align="center" width="55"></el-table-column>
-      <el-table-column label="序号" type="index" width="50" align="center">
+    <el-table
+      ref="genRef"
+      v-loading="loading"
+      :data="tableList"
+      :default-sort="defaultSort"
+      @selection-change="handleSelectionChange"
+      @sort-change="handleSortChange">
+      <el-table-column type="selection" align="center" width="55" />
+      <el-table-column
+        label="序号"
+        type="index"
+        width="50"
+        align="center">
         <template #default="scope">
-          <span>{{(queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1}}</span>
+          <span>{{ (queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1 }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="表名称" align="center" prop="tableName" :show-overflow-tooltip="true" />
-      <el-table-column label="表描述" align="center" prop="tableComment" :show-overflow-tooltip="true" />
-      <el-table-column label="实体" align="center" prop="className" :show-overflow-tooltip="true" />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="160" sortable="custom" :sort-orders="['descending', 'ascending']" />
-      <el-table-column label="更新时间" align="center" prop="updateTime" width="160" sortable="custom" :sort-orders="['descending', 'ascending']" />
-      <el-table-column label="操作" align="center" width="330" class-name="small-padding fixed-width">
+      <el-table-column
+        label="表名称"
+        align="center"
+        prop="tableName"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        label="表描述"
+        align="center"
+        prop="tableComment"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        label="实体"
+        align="center"
+        prop="className"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        label="创建时间"
+        align="center"
+        prop="createTime"
+        width="160"
+        sortable="custom"
+        :sort-orders="['descending', 'ascending']" />
+      <el-table-column
+        label="更新时间"
+        align="center"
+        prop="updateTime"
+        width="160"
+        sortable="custom"
+        :sort-orders="['descending', 'ascending']" />
+      <el-table-column
+        label="操作"
+        align="center"
+        width="330"
+        class-name="small-padding fixed-width">
         <template #default="scope">
           <el-tooltip content="预览" placement="top">
-            <el-button link type="primary" icon="View" @click="handlePreview(scope.row)" v-hasPermi="['tool:gen:preview']"></el-button>
+            <el-button
+              v-hasPermi="['tool:gen:preview']"
+              link
+              type="primary"
+              icon="View"
+              @click="handlePreview(scope.row)" />
           </el-tooltip>
           <el-tooltip content="编辑" placement="top">
-            <el-button link type="primary" icon="Edit" @click="handleEditTable(scope.row)" v-hasPermi="['tool:gen:edit']"></el-button>
+            <el-button
+              v-hasPermi="['tool:gen:edit']"
+              link
+              type="primary"
+              icon="Edit"
+              @click="handleEditTable(scope.row)" />
           </el-tooltip>
           <el-tooltip content="删除" placement="top">
-            <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['tool:gen:remove']"></el-button>
+            <el-button
+              v-hasPermi="['tool:gen:remove']"
+              link
+              type="primary"
+              icon="Delete"
+              @click="handleDelete(scope.row)" />
           </el-tooltip>
           <el-tooltip content="同步" placement="top">
-            <el-button link type="primary" icon="Refresh" @click="handleSynchDb(scope.row)" v-hasPermi="['tool:gen:edit']"></el-button>
+            <el-button
+              v-hasPermi="['tool:gen:edit']"
+              link
+              type="primary"
+              icon="Refresh"
+              @click="handleSynchDb(scope.row)" />
           </el-tooltip>
           <el-tooltip content="生成代码" placement="top">
-            <el-button link type="primary" icon="Download" @click="handleGenTable(scope.row)" v-hasPermi="['tool:gen:code']"></el-button>
+            <el-button
+              v-hasPermi="['tool:gen:code']"
+              link
+              type="primary"
+              icon="Download"
+              @click="handleGenTable(scope.row)" />
           </el-tooltip>
         </template>
       </el-table-column>
     </el-table>
     <pagination
       v-show="total>0"
-      :total="total"
       v-model:page="queryParams.pageNum"
       v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+      :total="total"
+      @pagination="getList" />
     <!-- 预览界面 -->
-    <el-dialog :title="preview.title" v-model="preview.open" width="80%" top="5vh" append-to-body class="scrollbar">
+    <el-dialog
+      v-model="preview.open"
+      :title="preview.title"
+      width="80%"
+      top="5vh"
+      append-to-body
+      class="scrollbar">
       <el-tabs v-model="preview.activeName">
         <el-tab-pane
           v-for="(value, key) in preview.data"
-          :label="key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))"
-          :name="key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))"
           :key="value"
-        >
-          <el-link :underline="false" icon="DocumentCopy" v-copyText="value" v-copyText:callback="copyTextSuccess" style="float:right">&nbsp;复制</el-link>
+          :label="key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))"
+          :name="key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))">
+          <el-link
+            v-copyText="value"
+            v-copyText:callback="copyTextSuccess"
+            :underline="false"
+            icon="DocumentCopy"
+            style="float:right">
+            &nbsp;复制
+          </el-link>
           <pre>{{ value }}</pre>
         </el-tab-pane>
       </el-tabs>

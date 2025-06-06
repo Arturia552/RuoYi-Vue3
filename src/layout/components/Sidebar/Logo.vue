@@ -1,13 +1,25 @@
 <template>
   <div class="sidebar-logo-container" :class="{ 'collapse': collapse }">
     <transition name="sidebarLogoFade">
-      <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo" />
-        <h1 v-else class="sidebar-title">{{ title }}</h1>
+      <router-link
+        v-if="collapse"
+        key="collapse"
+        class="sidebar-logo-link"
+        to="/">
+        <img v-if="logo" :src="logo" class="sidebar-logo">
+        <h1 v-else class="sidebar-title">
+          {{ title }}
+        </h1>
       </router-link>
-      <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo" />
-        <h1 class="sidebar-title">{{ title }}</h1>
+      <router-link
+        v-else
+        key="expand"
+        class="sidebar-logo-link"
+        to="/">
+        <img v-if="logo" :src="logo" class="sidebar-logo">
+        <h1 class="sidebar-title">
+          {{ title }}
+        </h1>
       </router-link>
     </transition>
   </div>
@@ -17,8 +29,9 @@
 import logo from '@/assets/logo/logo.png'
 import useSettingsStore from '@/store/modules/settings'
 import variables from '@/assets/styles/variables.module.scss'
+import { computed } from 'vue'
 
-defineProps({
+const props = defineProps({
   collapse: {
     type: Boolean,
     required: true
@@ -44,6 +57,11 @@ const getLogoTextColor = computed(() => {
   }
   return sideTheme.value === 'theme-dark' ? '#fff' : variables.menuLightText
 })
+
+const logoWidth = computed(() => {
+  return props.collapse ? '54px': '200px'
+})
+
 </script>
 
 <style lang="scss" scoped>
@@ -58,8 +76,9 @@ const getLogoTextColor = computed(() => {
 
 .sidebar-logo-container {
   position: relative;
-  width: 100%;
+  width: v-bind(logoWidth);
   height: 50px;
+  transition: width 0.28s;
   line-height: 50px;
   background: v-bind(getLogoBackground);
   text-align: center;
