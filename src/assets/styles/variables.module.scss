@@ -31,13 +31,6 @@ $base-menu-background: #304156;
 $base-sub-menu-background: #1f2d3d;
 $base-sub-menu-hover: #001528;
 
-// 组件变量
-$--color-primary: #409EFF;
-$--color-success: #67C23A;
-$--color-warning: #E6A23C;
-$--color-danger: #F56C6C;
-$--color-info: #909399;
-
 :export {
   menuText: $menuText;
   menuActiveText: $menuActiveText;
@@ -57,12 +50,6 @@ $--color-info: #909399;
   tiffany: $tiffany;
   yellow: $yellow;
   panGreen: $panGreen;
-  // 导出组件颜色
-  colorPrimary: $--color-primary;
-  colorSuccess: $--color-success;
-  colorWarning: $--color-warning;
-  colorDanger: $--color-danger;
-  colorInfo: $--color-info;
 }
 
 // CSS变量定义
