@@ -176,7 +176,12 @@
       margin-left: 0px;
     }
 
+    .sidebar-logo-container {
+      display: none;
+    }
+
     .sidebar-container {
+      top: 0;
       transition: transform .28s;
       width: vars.$base-sidebar-width !important;
     }

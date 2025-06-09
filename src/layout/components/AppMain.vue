@@ -41,7 +41,9 @@ function addIframe() {
   min-height: calc(100vh - 50px);
   width: 100%;
   position: relative;
+  padding: 12px;
   overflow: hidden;
+  background-color: var(--el-bg-color-page);
 }
 
 .app-main:has(.copyright) {

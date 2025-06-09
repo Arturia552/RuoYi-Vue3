@@ -123,9 +123,10 @@ aside {
 
 //main-container全局样式
 .app-container {
-  padding: 20px;
+  padding: 12px;
   overflow: auto;
-  height: calc(100vh - 84px);
+  height: calc(100vh - 108px);
+  background-color: var(--el-bg-color);
 }
 
 .components-container {
